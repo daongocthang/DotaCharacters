@@ -23,11 +23,16 @@ public class InputTargeting : MonoBehaviour
             if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out var hit, Mathf.Infinity))
             {
                 var targetable = hit.collider.GetComponent<Targetable>();
-                if (targetable != null)
+                var heroCombat = selectedHero.GetComponent<HeroCombat>();
+                if (targetable is null)
+                {
+                    heroCombat.enemy = null;
+                }
+                else
                 {
                     if (targetable.enemyType == Targetable.EnemyType.PetitDragon)
                     {
-                        selectedHero.GetComponent<HeroCombat>().enemy = targetable.gameObject;
+                        heroCombat.enemy = targetable.gameObject;
                     }
                 }
             }
